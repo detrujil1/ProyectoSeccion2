@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-
+import user from "./user.js";
 const purchaseSchema = new mongoose.Schema(
   {
     user: {
@@ -15,6 +15,10 @@ const purchaseSchema = new mongoose.Schema(
         quantity: Number,
       },
     ],
+    deletedAt:{
+      type:Date,
+      default:null
+    }
   },
   {
     timestamps: true, // createAt, updatedAt

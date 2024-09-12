@@ -1,9 +1,10 @@
-import purchase from "../models/purchaseOrden.js";
+import Purchase from "../models/purchaseOrden.js";
 import User from "../models/user.js";
 
 async function getAll(req, res) {
   try {
-    const purchases = await purchase.find({ deletedAt: null }).populate("id");
+    
+    const purchases = await Purchase.find({ deletedAt: null }).populate("user");
     return res.json(purchases);
   } catch (error) {
     console.log(error);
@@ -15,7 +16,7 @@ async function getAll(req, res) {
 async function create(req, res) {
   try {
     // Construye el objeto de compra desde el cuerpo de la solicitud
-    const newPurchase = await purchase.create({
+    const newPurchase = await Purchase.create({
       user: req.body.user,  // ID del usuario que realiza la compra
       products: req.body.products.map(product => ({
         product: product.product, // ID del producto
@@ -33,7 +34,7 @@ async function create(req, res) {
 
 // async function getById(req, res) {
 //   try {
-//     const purchase = await purchase.findById(req.params.id);
+//     const purchase = await Purchase.findById(req.params.id);
 //     return res.json(purchase);
 //   } catch (error) {
 //     console.log(error);
@@ -44,7 +45,7 @@ async function create(req, res) {
 
 
 // async function update(req, res) {
-//   const recipeToUpdate = await purchase.findById(req.params.id);
+//   const recipeToUpdate = await Purchase.findById(req.params.id);
 
 //   if (recipeToUpdate !== null) {
 //     const { title, description, preparation, instructions } = req.body;
@@ -63,7 +64,7 @@ async function create(req, res) {
 // }
 
 // async function destroy(req, res) {
-//   const recipeToDelete = await purchase.findById(req.params.id);
+//   const recipeToDelete = await Purchase.findById(req.params.id);
 
 //   recipeToDelete.deletedAt = Date.now();
 //   recipeToDelete.save();
