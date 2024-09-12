@@ -11,6 +11,26 @@ async function getAll(req, res) {
   }
 }
 
+
+async function create(req, res) {
+  try {
+    // Construye el objeto de compra desde el cuerpo de la solicitud
+    const newPurchase = await purchase.create({
+      user: req.body.user,  // ID del usuario que realiza la compra
+      products: req.body.products.map(product => ({
+        product: product.product, // ID del producto
+        quantity: product.quantity // Cantidad del producto
+      })),
+    });
+
+    return res.status(201).json(newPurchase);
+  } catch (error) {
+    console.log(error.message || "Error en la creación de la compra");
+    return res.status(500).json({ error: "Error en el servidor" });
+  }
+}
+
+
 // async function getById(req, res) {
 //   try {
 //     const purchase = await purchase.findById(req.params.id);
@@ -21,23 +41,6 @@ async function getAll(req, res) {
 //   }
 // }
 
-async function create(req, res) {
-    try {
-      // Construye el objeto de compra desde el cuerpo de la solicitud
-      const newPurchase = await Purchase.create({
-        user: req.body.user,  // ID del usuario que realiza la compra
-        products: req.body.products.map(product => ({
-          product: product.product, // ID del producto
-          quantity: product.quantity // Cantidad del producto
-        })),
-      });
-  
-      return res.status(201).json(newPurchase);
-    } catch (error) {
-      console.log(error.message || "Error en la creación de la compra");
-      return res.status(500).json({ error: "Error en el servidor" });
-    }
-  }
 
 
 // async function update(req, res) {

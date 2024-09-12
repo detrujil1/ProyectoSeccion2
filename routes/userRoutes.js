@@ -1,9 +1,12 @@
-import Router from "express";
-import register from "../controllers/userControllers.js";
+import express from "express";
+import userController from '../controllers/UserController.js';
 
-const router = Router();
+const userRouter = express.Router();
 
-router.post("/users", register);
+userRouter.get("/api/user", userController.getAll);
+userRouter.get("/api/user/:id", userController.getById);
+userRouter.post("/api/user",userController.create);
+// userRouter.patch("/api/purchase/:id", purchaseController.update);
+// userRouter.delete("/api/purchase/:id", purchaseController.destroy);
 
-export default router
-
+export default userRouter;
