@@ -1,7 +1,9 @@
 import express from "express";
-import productController from "../controllers/productController";
+import productController from "../controllers/productController.js";
 
-const router = express.Router();
+const ProductRouter = express.Router();
 
-router.get("/api/location", productController.getAll);
-router.get("/api/location:id", productController.getById);
+ProductRouter.get("/api/Product", productController.getAll);
+// ProductRouter.get("/api/Product:id", productController.getById);
+
+export default ProductRouter

@@ -9,15 +9,15 @@ async function getAll(req, res) {
     return res.status(404).json("Producto no encontrada");
   }
 }
-async function getById(req, res) {
-    try {
-        const producById = await Product.find
-    } catch (error) {
-        console.log(error);
-        return res.status(404).json("Producto no encontrada");
-    }
+// async function getById(req, res) {
+//     try {
+//         const producById = await Product.find
+//     } catch (error) {
+//         console.log(error);
+//         return res.status(404).json("Producto no encontrada");
+//     }
     
-}
+// }
 
 
 
