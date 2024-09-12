@@ -3,6 +3,7 @@ import express from "express";
 import router from "./routes/locationRoutes.js";
 import ProductRouter from "./routes/productRoute.js";
 import purchaseControllerRouter from "./routes/purchaseOrdenRoutes.js"
+import userRouter from "./routes/userRoutes.js"
 
 const app = express();
 
@@ -14,6 +15,7 @@ connectDB();
 app.use(router);
 app.use(ProductRouter);
 app.use(purchaseControllerRouter);
+app.use(userRouter)
 
 
 app.listen(3000, () => {
