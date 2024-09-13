@@ -3,7 +3,7 @@ import User from "../models/user.js";
 
 async function getAll(req, res) {
   try {
-    const user = await User.find({ deletedAt: null }).populate("id");
+    const user = await User.find({ deletedAt: null });
     return res.json(user);
   } catch (error) {
     console.log(error);
@@ -40,38 +40,45 @@ async function create(req, res) {
   }
 
 
-// async function update(req, res) {
-//   const recipeToUpdate = await user.findById(req.params.id);
+async function update(req, res) {
+  const userToUpdate = await User.findById(req.params.id);
 
-//   if (recipeToUpdate !== null) {
-//     const { title, description, preparation, instructions } = req.body;
+  if (userToUpdate !== null) {
+    const { document, name, lastName, email, password } = req.body;
 
-//     recipeToUpdate.title = title || recipeToUpdate.title;
-//     recipeToUpdate.description = description || recipeToUpdate.description;
-//     recipeToUpdate.preparation = preparation || recipeToUpdate.preparation;
-//     recipeToUpdate.instructions = instructions || recipeToUpdate.instructions;
+    userToUpdate.document = document || userToUpdate.document;
+    userToUpdate.name = name || userToUpdate.name;
+    userToUpdate.lastName = lastName || userToUpdate.lastName;
+    userToUpdate.email = email || userToUpdate.email;
+    userToUpdate.password = password || userToUpdate.password;
 
-//     await recipeToUpdate.save();
+    await userToUpdate.save();
 
-//     return res.json("La receta ha sido actualizada");
-//   } else {
-//     return res.json("No existe una receta con el ID mencionado");
-//   }
-// }
+    return res.json("La receta ha sido actualizada");
+  } else {
+    return res.json("No existe una receta con el ID mencionado");
+  }
+}
 
-// async function destroy(req, res) {
-//   const recipeToDelete = await user.findById(req.params.id);
+async function deleteUser(req, res) {
+  try {
+  
+      const userToDelete = await User.findById(req.params.id);
 
-//   recipeToDelete.deletedAt = Date.now();
-//   recipeToDelete.save();
+      userToDelete.deletedAt = Date.now();
+      userToDelete.save();
 
-//   return res.json("La receta se ha eliminado");
-// }
+      return res.json("La receta se ha eliminado");
+  } catch (error) {
+     console.log("se cayo el sistmea")
+  }
+}
+
 
 export default {
   getAll: getAll,
   getById: getById,
   create: create,
-//   update: update,
-//   destroy: destroy,
+  update: update,
+  deleteUser: deleteUser,
 };
