@@ -1,13 +1,23 @@
 
+import { CreateToken } from "../middleware/createToken.js";
 import User from "../models/user.js";
+import bcrypt from "bcrypt"
 
 async function login(req, res) {
   const loginInfo = req.body
-  const {password}=req.body
   try {
     const userInfo = await User.findOne({email: loginInfo.email} )
     const isMatch = await bcrypt.compare(loginInfo.password, userInfo.password)
-    console.log(isMatch)
+    console.log(isMatch);
+    if (!isMatch){
+      return res.status(500).json("contraseña incorrecta")
+    }
+    const payload = userInfo.toObject()
+    delete payload.password
+    const data = {...payload}
+    
+    const token = CreateToken(data)
+    return res.status(200).json(token)
   } catch (error) {
     console.log(error);
     return res.status(404).json("usuarios no resgitrado")
