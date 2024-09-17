@@ -1,6 +1,20 @@
 
 import User from "../models/user.js";
 
+async function login(req, res) {
+  const loginInfo = req.body
+  const {password}=req.body
+  try {
+    const userInfo = await User.findOne({email: loginInfo.email} )
+    const isMatch = await bcrypt.compare(loginInfo.password, userInfo.password)
+    console.log(isMatch)
+  } catch (error) {
+    console.log(error);
+    return res.status(404).json("usuarios no resgitrado")
+  }
+  
+}
+
 async function getAll(req, res) {
   try {
     const user = await User.find({ deletedAt: null });
@@ -81,4 +95,5 @@ export default {
   create: create,
   update: update,
   deleteUser: deleteUser,
+  login: login
 };

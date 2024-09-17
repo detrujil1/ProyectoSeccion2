@@ -8,5 +8,6 @@ userRouter.get("/api/user/:id", userController.getById);
 userRouter.post("/api/user",userController.create);
 userRouter.patch("/api/user/:id", userController.update);
 userRouter.delete("/api/user/:id", userController.deleteUser);
+userRouter.post("/api/user/login", userController.login);
 
 export default userRouter;

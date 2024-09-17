@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import encryptPassword from "../middleware/ecrypt.js";
 
 const userSchema = new mongoose.Schema(
     {
@@ -14,5 +15,8 @@ const userSchema = new mongoose.Schema(
 
     }
 )
+
+userSchema.pre("save", encryptPassword);
+
 const User = mongoose.model("User", userSchema);
 export default User;
