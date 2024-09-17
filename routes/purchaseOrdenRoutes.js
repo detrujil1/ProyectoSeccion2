@@ -10,10 +10,8 @@ import purchaseController from '../controllers/purchaseController.js';
 const purchaseControllerRouter = express.Router();
 
 purchaseControllerRouter.get("/api/purchase", purchaseController.getAll);
-// purchaseControllerRouter.get("/api/purchase/:id", purchaseController.getById);
-
 purchaseControllerRouter.post("/api/purchase",purchaseController.create);
-
+purchaseControllerRouter.get("/api/purchase/:user", purchaseController.getById);
 
 // purchaseControllerRouter.patch("/api/purchase/:id", purchaseController.update);
 // purchaseControllerRouter.delete("/api/purchase/:id", purchaseController.destroy);

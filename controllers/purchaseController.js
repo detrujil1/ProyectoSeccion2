@@ -32,15 +32,15 @@ async function create(req, res) {
 }
 
 
-// async function getById(req, res) {
-//   try {
-//     const purchase = await Purchase.findById(req.params.id);
-//     return res.json(purchase);
-//   } catch (error) {
-//     console.log(error);
-//     return res.status(404).json("Receta no encontrada");
-//   }
-// }
+async function getById(req, res) {
+  try {
+    const purchase = await Purchase.findById(req.params.id);
+    return res.json(purchase);
+  } catch (error) {
+    console.log(error);
+    return res.status(404).json("Receta no encontrada");
+  }
+}
 
 
 
@@ -74,7 +74,7 @@ async function create(req, res) {
 
 export default {
   getAll: getAll,
-//   getById: getById,
+  getById: getById,
   create: create,
 //   update: update,
 //   destroy: destroy,

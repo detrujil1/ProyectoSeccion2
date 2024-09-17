@@ -11,15 +11,15 @@ async function getAll(req, res) {
   }
 }
 
-// async function getById(req, res) {
-//   try {
-//     const location = await location.findById(req.params.id);
-//     return res.json(location);
-//   } catch (error) {
-//     console.log(error);
-//     return res.status(404).json("Receta no encontrada");
-//   }
-// }
+async function getById(req, res) {
+  try {
+    const Location = await location.findById(req.params.id);
+    return res.json(Location);
+  } catch (error) {
+    console.log(error);
+    return res.status(404).json("Direccion no encontrada");
+  }
+}
 
 async function create(req, res) {
   try {
@@ -36,24 +36,24 @@ async function create(req, res) {
   }
 }
 
-// async function update(req, res) {
-//   const recipeToUpdate = await location.findById(req.params.id);
+async function update(req, res) {
+  const locationToUpdate = await location.findById(req.params.id);
 
-//   if (recipeToUpdate !== null) {
-//     const { title, description, preparation, instructions } = req.body;
+  if (locationToUpdate !== null) {
+    const { id, city, zipCode, address } = req.body;
 
-//     recipeToUpdate.title = title || recipeToUpdate.title;
-//     recipeToUpdate.description = description || recipeToUpdate.description;
-//     recipeToUpdate.preparation = preparation || recipeToUpdate.preparation;
-//     recipeToUpdate.instructions = instructions || recipeToUpdate.instructions;
+    locationToUpdate.id = id || locationToUpdate.id;
+    locationToUpdate.city = city || locationToUpdate.city;
+    locationToUpdate.zipCode = zipCode || locationToUpdate.zipCode;
+    locationToUpdate.address = address || locationToUpdate.address;
 
-//     await recipeToUpdate.save();
+    await locationToUpdate.save();
 
-//     return res.json("La receta ha sido actualizada");
-//   } else {
-//     return res.json("No existe una receta con el ID mencionado");
-//   }
-// }
+    return res.json("La receta ha sido actualizada");
+  } else {
+    return res.json("No existe una receta con el ID mencionado");
+  }
+}
 
 // async function destroy(req, res) {
 //   const recipeToDelete = await location.findById(req.params.id);
@@ -66,8 +66,7 @@ async function create(req, res) {
 
 export default {
   getAll: getAll,
-//   getById: getById,
+  getById: getById,
   create: create,
-//   update: update,
 //   destroy: destroy,
 };
