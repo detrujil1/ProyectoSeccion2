@@ -1,4 +1,4 @@
-import bcrypt from "bcryptjs";
+import bcrypt from "bcrypt";
 
 const encryptPassword = async function(next) {
     if (!this.isModified('password')) {

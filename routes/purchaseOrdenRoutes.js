@@ -15,9 +15,7 @@ purchaseControllerRouter.get("/api/purchase/:user", purchaseController.getById);
 
 //================aporte de richard=========/
 purchaseControllerRouter.patch("/api/purchase/:id", purchaseController.update);
-
-
-// purchaseControllerRouter.delete("/api/purchase/:id", purchaseController.destroy);
+purchaseControllerRouter.delete("/api/purchase/:id", purchaseController.destroy);
 
 //================cierre de richard=========/
 

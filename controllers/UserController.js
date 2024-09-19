@@ -1,7 +1,7 @@
 
 import { CreateToken } from "../middleware/createToken.js";
 import User from "../models/user.js";
-import bcrypt from "bcryptjs"
+import bcrypt from "bcrypt"
 
 async function login(req, res) {
   const loginInfo = req.body

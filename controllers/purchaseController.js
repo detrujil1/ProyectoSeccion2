@@ -1,5 +1,5 @@
 import Purchase from "../models/purchaseOrden.js";
-import User from "../models/user.js";
+// import User from "../models/user.js";
 
 async function getAll(req, res) {
   try {
@@ -42,7 +42,7 @@ async function getById(req, res) {
   }
 }
 
-
+//==============aporte  richard=================
 // se crea  orden update controller
 async function update(req, res) {
 const orderToUpdate = await Purchase.findById(req.params.id);
@@ -62,20 +62,20 @@ const orderToUpdate = await Purchase.findById(req.params.id);
      return res.json("No existe una orden con el ID mencionado");
    }
  }
+// orden destry
+async function destroy(req, res) {
+const orderToDelete = await Purchase.findById(req.params.id);
 
-// async function destroy(req, res) {
-//   const recipeToDelete = await Purchase.findById(req.params.id);
+   orderToDelete.deletedAt = Date.now();
+   orderToDelete.save();
 
-//   recipeToDelete.deletedAt = Date.now();
-//   recipeToDelete.save();
-
-//   return res.json("La receta se ha eliminado");
-// }
+   return res.json("La orden se ha eliminado");
+ }
 
 export default {
   getAll: getAll,
   getById: getById,
   create: create,
   update: update,
-//   destroy: destroy,
+ destroy: destroy,
 };

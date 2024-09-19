@@ -11,9 +11,7 @@ async function getAll(req, res) {
 }
 
 // ==============Aporte  abre Richard Torres=======================
-
 //* Controlador de Product (Faltan getByIdok, createok, update y destroy)
-
 //create
 async function create(req, res) {
   try {
@@ -84,11 +82,6 @@ async function deleteProduct(req, res) {
      console.log("se cayo el sistmea")
   }
 }
-
-// create  debo crearlo
-//destroy debo crearlo
-// update debo crearlo
-
 // ==============cierra abre Richard Torres=======================
 
 export default {
