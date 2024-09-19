@@ -11,3 +11,5 @@ userRouter.delete("/api/user/:id", userController.deleteUser);
 userRouter.post("/api/user/login", userController.login);
 
 export default userRouter;
+
+

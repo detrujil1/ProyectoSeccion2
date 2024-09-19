@@ -41,7 +41,7 @@ async function getById(req, res) {
     return res.json(user);
   } catch (error) {
     console.log(error);
-    return res.status(404).json("Receta no encontrada");
+    return res.status(404).json("user no encontrada");
   }
 }
 
