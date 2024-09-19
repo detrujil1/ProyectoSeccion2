@@ -3,11 +3,11 @@ import User from "../models/user.js";
 
 async function getAll(req, res) {
   try {
-    const locations = await location.find({ deletedAt: null }).populate("id");
+    const locations = await location.find({ deletedAt: null });
     return res.json(locations);
   } catch (error) {
     console.log(error);
-    return res.status(404).json("Receta no encontrada");
+    return res.status(404).json("Direccion no encontrada");
   }
 }
 
@@ -24,7 +24,6 @@ async function getById(req, res) {
 async function create(req, res) {
   try {
     const newLocation = await location.create({
-        id:req.body.id,
         city:req.body.city,
         zipCode:req.body.zipCode,
         address:req.body.address
@@ -40,16 +39,15 @@ async function update(req, res) {
   const locationToUpdate = await location.findById(req.params.id);
 
   if (locationToUpdate !== null) {
-    const { id, city, zipCode, address } = req.body;
+    const { city, zipCode, address } = req.body;
 
-    locationToUpdate.id = id || locationToUpdate.id;
     locationToUpdate.city = city || locationToUpdate.city;
     locationToUpdate.zipCode = zipCode || locationToUpdate.zipCode;
     locationToUpdate.address = address || locationToUpdate.address;
 
     await locationToUpdate.save();
 
-    return res.json("La receta ha sido actualizada");
+    return res.json("La direccion ha sido actualizada");
   } else {
     return res.json("No existe una receta con el ID mencionado");
   }
@@ -68,5 +66,6 @@ export default {
   getAll: getAll,
   getById: getById,
   create: create,
+  update: update,
 //   destroy: destroy,
 };
