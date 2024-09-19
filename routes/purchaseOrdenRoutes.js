@@ -13,7 +13,12 @@ purchaseControllerRouter.get("/api/purchase", purchaseController.getAll);
 purchaseControllerRouter.post("/api/purchase",purchaseController.create);
 purchaseControllerRouter.get("/api/purchase/:user", purchaseController.getById);
 
-// purchaseControllerRouter.patch("/api/purchase/:id", purchaseController.update);
+//================aporte de richard=========/
+purchaseControllerRouter.patch("/api/purchase/:id", purchaseController.update);
+
+
 // purchaseControllerRouter.delete("/api/purchase/:id", purchaseController.destroy);
+
+//================cierre de richard=========/
 
 export default purchaseControllerRouter;

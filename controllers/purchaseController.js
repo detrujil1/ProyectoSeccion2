@@ -43,25 +43,25 @@ async function getById(req, res) {
 }
 
 
+// se crea  orden update controller
+async function update(req, res) {
+const orderToUpdate = await Purchase.findById(req.params.id);
 
-// async function update(req, res) {
-//   const recipeToUpdate = await Purchase.findById(req.params.id);
+   if (orderToUpdate !== null) {
+     const { user, products, quantity, number  } = req.body;
 
-//   if (recipeToUpdate !== null) {
-//     const { title, description, preparation, instructions } = req.body;
+     orderToUpdate.user = user || orderToUpdate.user;
+     orderToUpdate.products = products || orderToUpdate.products;
+     orderToUpdate.quantity = quantity || orderToUpdate.quantity;
+     orderToUpdate.number = number || orderToUpdate.number;
 
-//     recipeToUpdate.title = title || recipeToUpdate.title;
-//     recipeToUpdate.description = description || recipeToUpdate.description;
-//     recipeToUpdate.preparation = preparation || recipeToUpdate.preparation;
-//     recipeToUpdate.instructions = instructions || recipeToUpdate.instructions;
+          await orderToUpdate.save();
 
-//     await recipeToUpdate.save();
-
-//     return res.json("La receta ha sido actualizada");
-//   } else {
-//     return res.json("No existe una receta con el ID mencionado");
-//   }
-// }
+     return res.json("La Orden ha sido actualizada");
+   } else {
+     return res.json("No existe una orden con el ID mencionado");
+   }
+ }
 
 // async function destroy(req, res) {
 //   const recipeToDelete = await Purchase.findById(req.params.id);
@@ -76,6 +76,6 @@ export default {
   getAll: getAll,
   getById: getById,
   create: create,
-//   update: update,
+  update: update,
 //   destroy: destroy,
 };
