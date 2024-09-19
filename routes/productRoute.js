@@ -4,9 +4,6 @@ import productController from "../controllers/productController.js";
 const ProductRouter = express.Router();
 
 ProductRouter.get("/api/Product", productController.getAll);
-
-
-//===========richard================
 // ProductRouter.get("/api/Product:id", productController.getById);
 // creacion ruta create newproduct
 
@@ -18,4 +15,6 @@ ProductRouter.delete("/api/Product/:id", productController.deleteProduct);//dele
 //===========richard================
 
 //exportar 
+
+
 export default ProductRouter

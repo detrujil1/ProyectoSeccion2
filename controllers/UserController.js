@@ -47,9 +47,14 @@ async function getById(req, res) {
 
 async function create(req, res) {
     try {
-      // Construye el objeto de compra desde el cuerpo de la solicitud
+      const {email, document } = req.body
+      const user = await User.findOne({email:email},{document:document})
+      console.log(user)
+      if(user){
+        return res.json("usuario ya existente ")
+      }
       const newUser = await User.create({
-        id: req.body.id,  // ID del usuario que realiza la compra
+        id: req.body.id,  
         name : req.body.name,
         lastName: req.body.lastName,
         email:req.body.email,
