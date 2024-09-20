@@ -53,19 +53,19 @@ async function update(req, res) {
   }
 }
 
-// async function destroy(req, res) {
-//   const recipeToDelete = await location.findById(req.params.id);
+async function destroy(req, res) {
+  const recipeToDelete = await location.findById(req.params.id);
 
-//   recipeToDelete.deletedAt = Date.now();
-//   recipeToDelete.save();
+  recipeToDelete.deletedAt = Date.now();
+  recipeToDelete.save();
 
-//   return res.json("La receta se ha eliminado");
-// }
+  return res.json("La receta se ha eliminado");
+}
 
 export default {
   getAll: getAll,
   getById: getById,
   create: create,
   update: update,
-//   destroy: destroy,
+  destroy: destroy,
 };
