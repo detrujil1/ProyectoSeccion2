@@ -4,7 +4,7 @@ import productController from "../controllers/productController.js";
 const ProductRouter = express.Router();
 
 ProductRouter.get("/api/Product", productController.getAll);
-// ProductRouter.get("/api/Product:id", productController.getById);
+
 // creacion ruta create newproduct
 
 ProductRouter.post("/api/product", productController.create);//crate

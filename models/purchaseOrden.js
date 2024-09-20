@@ -28,5 +28,5 @@ const purchaseSchema = new mongoose.Schema(
 const Purchase = mongoose.model("Purchase", purchaseSchema);
 export default Purchase;
 
-// User
-// products:quantity: Number
+user
+products:quantity: Number

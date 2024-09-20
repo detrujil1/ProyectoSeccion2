@@ -23,7 +23,7 @@ async function login(req, res) {
     return res.status(404).json("usuarios no resgitrado")
   }
   
-} 
+}
 
 async function getAll(req, res) {
   try {
@@ -47,14 +47,9 @@ async function getById(req, res) {
 
 async function create(req, res) {
     try {
-      const {email, document } = req.body
-      const user = await User.findOne({email:email},{document:document})
-      console.log(user)
-      if(user){
-        return res.json("usuario ya existente ")
-      }
+      // Construye el objeto de compra desde el cuerpo de la solicitud
       const newUser = await User.create({
-        id: req.body.id,  
+        id: req.body.id,  // ID del usuario que realiza la compra
         name : req.body.name,
         lastName: req.body.lastName,
         email:req.body.email,
@@ -83,9 +78,9 @@ async function update(req, res) {
 
     await userToUpdate.save();
 
-    return res.json("La receta ha sido actualizada");
+    return res.json("El usuario ha sido actualizada");
   } else {
-    return res.json("No existe una receta con el ID mencionado");
+    return res.json("No existe el usuario con el ID mencionado");
   }
 }
 
@@ -97,9 +92,9 @@ async function deleteUser(req, res) {
       userToDelete.deletedAt = Date.now();
       userToDelete.save();
 
-      return res.json("La receta se ha eliminado");
+      return res.json("El usuario se ha eliminado");
   } catch (error) {
-     console.log("se cayo el sistmea")
+     console.log("se cayo el sistemea")
   }
 }
 
