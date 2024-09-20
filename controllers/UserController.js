@@ -40,6 +40,7 @@ async function getById(req, res) {
     const user = await User.findById(req.params.id);
     return res.json(user);
   } catch (error) {
+    console.log("xxx")
     console.log(error);
     return res.status(404).json("user no encontrada");
   }
