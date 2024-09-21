@@ -11,8 +11,8 @@ async function productSeeder() {
         size: "M",
         stock: "100 Uunidades",
         price: "200000",
-        category: "sacos"
-        brand: "Nike"
+        category: "sacos",
+        brand: "Nike",
         sku: "saco-pluma-nike"
 
     })
@@ -21,8 +21,8 @@ async function productSeeder() {
         size: "S",
         stock: "200 unidades",
         price: "300000",
-        category: "camisas"
-        brand: "Adidas"
+        category: "camisas",
+        brand: "Adidas",
         sku: "camisa-nike"
 
     })
@@ -31,8 +31,8 @@ async function productSeeder() {
         size: "L",
         stock: "200 unidades",
         price: "300000",
-        category: "camisa"
-        brand: "Adidas"
+        category: "camisa",
+        brand: "Adidas",
         sku: "camisa-nike"
 
     })
