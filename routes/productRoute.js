@@ -12,7 +12,7 @@ ProductRouter.get("/api/Product/:id", productController.getById);//getById
 ProductRouter.patch("/api/Product/:id", productController.update);//update
 ProductRouter.delete("/api/Product/:id", productController.deleteProduct);//delete
 
-//===========richard================
+
 
 //exportar 
 
