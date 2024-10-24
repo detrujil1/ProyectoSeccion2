@@ -5,9 +5,10 @@ import ProductRouter from "./routes/productRoute.js";
 import purchaseControllerRouter from "./routes/purchaseOrdenRoutes.js"
 import userRouter from "./routes/userRoutes.js"
 import adminRouter from "./routes/adminRoutes.js";
+import cors from "cors"
 
 const app = express();
-
+app.use(cors());
 app.use(express.json());
 
 connectDB();
