@@ -15,16 +15,16 @@ async function getAll(req, res) {
 //create
 async function create(req, res) {
   try {
-    // Construye el objeto de compra desde el cuerpo de la solicitud
-    const newProduct= await Product.create({
-      
-        name: req.body.name,
-        size: req.body.size,
-        stock:req.body.stock,
-        price: req.body.price,
-        category:req.body.category ,
-        brand:req.body.brand,
-        sku:req.body.sku,
+    const newProduct = await Product.create({
+      name: req.body.name,
+      size: req.body.size,
+      stock: req.body.stock,
+      price: req.body.price,
+      category: req.body.category,
+      brand: req.body.brand,
+      sku: req.body.sku,
+      description: req.body.description,  // Incluye la descripción si está presente
+      images: req.body.images  // Incluye imágenes si están presentes
     });
 
     return res.status(201).json(newProduct);
@@ -33,6 +33,7 @@ async function create(req, res) {
     return res.status(500).json({ error: "Error en el servidor" });
   }
 }
+
 
 //getby id
 
@@ -50,7 +51,7 @@ async function update(req, res) {
   const productToUpdate = await Product.findById(req.params.id);
 
   if (productToUpdate !== null) {
-    const { name, size, stock,price, category,brand, sku, } = req.body;
+    const { name, size, stock, price, category, brand, sku, description, images } = req.body;
 
     productToUpdate.name = name || productToUpdate.name;
     productToUpdate.size = size || productToUpdate.size;
@@ -59,12 +60,14 @@ async function update(req, res) {
     productToUpdate.category = category || productToUpdate.category;
     productToUpdate.brand = brand || productToUpdate.brand;
     productToUpdate.sku = sku || productToUpdate.sku;
+    productToUpdate.description = description || productToUpdate.description;  // Actualiza la descripción si está
+    productToUpdate.images = images || productToUpdate.images;  // Actualiza imágenes si están
 
     await productToUpdate.save();
 
-    return res.json("el producto ha sido actualizada");
+    return res.json("El producto ha sido actualizado");
   } else {
-    return res.json("No existe una un producto con el ID mencionado");
+    return res.status(404).json("No existe un producto con el ID mencionado");
   }
 }
 
