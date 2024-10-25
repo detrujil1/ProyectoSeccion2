@@ -7,7 +7,12 @@ async function login(req, res) {
   const loginInfo = req.body
   try {
     const userInfo = await User.findOne({email: loginInfo.email} )
+    if(!userInfo){
+      return res.status(500).json("usuario no registrado")
+    }
     const isMatch = await bcrypt.compare(loginInfo.password, userInfo.password)
+    console.log(loginInfo.password,"login")
+    console.log(userInfo.password ,"user")
     console.log(isMatch);
     if (!isMatch){
       return res.status(500).json("contraseña incorrecta")
