@@ -3,8 +3,7 @@ import Purchase from "../models/purchaseOrden.js";
 
 async function getAll(req, res) {
   try {
-    
-    const purchases = await Purchase.find({ deletedAt: null }).populate("user");
+    const purchases = await Purchase.find({ deletedAt: null });
     return res.json(purchases);
   } catch (error) {
     console.log(error);
@@ -64,13 +63,22 @@ const orderToUpdate = await Purchase.findById(req.params.id);
  }
 // orden destry
 async function destroy(req, res) {
-const orderToDelete = await Purchase.findById(req.params.id);
+  try {
+    const orderToDelete = await Purchase.findById(req.params.id);
 
-   orderToDelete.deletedAt = Date.now();
-   orderToDelete.save();
+    if (!orderToDelete) {
+      return res.status(404).json("No existe una orden con el ID mencionado");
+    }
 
-   return res.json("La orden se ha eliminado");
- }
+    orderToDelete.deletedAt = Date.now();
+    await orderToDelete.save();
+
+    return res.json("La orden se ha eliminado");
+  } catch (error) {
+    console.log(error.message);
+    return res.status(500).json("Error al eliminar la orden");
+  }
+}
 
 export default {
   getAll: getAll,

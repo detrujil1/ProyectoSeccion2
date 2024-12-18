@@ -110,6 +110,7 @@ export default {
   getById: getById,
   create: create,
   update: update,
-  deleteUser: deleteUser,
-  login: login
+  deleteUser:deleteUser,
+  login:login,
 };
+

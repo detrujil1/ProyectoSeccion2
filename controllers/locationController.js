@@ -30,7 +30,8 @@ async function create(req, res) {
     });
     return res.status(201).json(newLocation);
   } catch (error) {
-    console.log(error.errors.id?.properties.message);
+    const errorMessage = error?.errors?.id?.properties?.message || error.message || 'Error desconocido';
+    console.log(errorMessage);
     return res.status(501).json("Error en el servidor");
   }
 }
@@ -54,13 +55,17 @@ async function update(req, res) {
 }
 
 async function destroy(req, res) {
-  const recipeToDelete = await location.findById(req.params.id);
-
-  recipeToDelete.deletedAt = Date.now();
-  recipeToDelete.save();
-
-  return res.json("La receta se ha eliminado");
+  try {
+    const recipeToDelete = await location.findById(req.params.id);
+    recipeToDelete.deletedAt = Date.now();
+    await recipeToDelete.save();
+    return res.json("La receta se ha eliminado");
+  } catch (error) {
+    console.log(error.message);
+    return res.status(404).json("Direccion no encontrada");
+  }
 }
+
 
 export default {
   getAll: getAll,

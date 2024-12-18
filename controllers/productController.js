@@ -74,17 +74,22 @@ async function update(req, res) {
 //conrolador destroy-delete
 async function deleteProduct(req, res) {
   try {
-  
-      const productToDelete = await Product.findById(req.params.id);
+    const productToDelete = await Product.findById(req.params.id);
 
-      productToDelete.deletedAt = Date.now();
-      productToDelete.save();
+    if (!productToDelete) {
+      return res.status(404).json("No existe un producto con el ID mencionado");
+    }
 
-      return res.json("el producto se ha eliminado");
+    productToDelete.deletedAt = Date.now();
+    await productToDelete.save();
+
+    return res.json("el producto se ha eliminado");
   } catch (error) {
-     console.log("se cayo el sistmea")
+    console.log("se cayo el sistmea");
+    return res.status(500).json("Error al eliminar producto");
   }
 }
+
 // ==============cierra abre Richard Torres=======================
 
 export default {
