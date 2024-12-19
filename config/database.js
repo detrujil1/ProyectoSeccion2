@@ -1,9 +1,16 @@
 import mongoose from "mongoose";
+import dotenv from "dotenv";
+dotenv.config();
+const mongoUri = process.env.DB_URI;
+
 
 async function connectDB() {
   try {
     const connection = await mongoose.connect(
-      "mongodb://127.0.0.1:27017/baseDeDatosDePrueba"
+      mongoUri
+
+
+
     );
     console.log("Se ha establecido conexión a la base de datos");
   } catch (error) {
