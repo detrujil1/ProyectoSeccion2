@@ -1,5 +1,5 @@
 
-import { CreateToken } from "../middleware/createToken.js";
+import { createToken } from "../middleware/createToken.js";
 import User from "../models/user.js";
 import bcrypt from "bcryptjs"
 
@@ -21,7 +21,7 @@ async function login(req, res) {
     delete payload.password
     const data = {...payload}
     
-    const token = CreateToken(data)
+    const token = createToken(data)
     return res.status(200).json(token)
   } catch (error) {
     console.log(error);

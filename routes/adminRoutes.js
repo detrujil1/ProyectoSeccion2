@@ -1,5 +1,5 @@
 import express from "express";
-import adminController from '../controllers/admincontroller .js';
+import adminController from '../controllers/admincontroller.js';
 import { validateToken } from "../middleware/createToken.js";
 
 const adminRouter = express.Router();

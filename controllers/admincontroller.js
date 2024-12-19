@@ -1,38 +1,36 @@
-import { CreateToken } from "../middleware/createToken.js";
+import { createToken } from "../middleware/createToken.js";
 import Admin from "../models/admin.js";
-import bcrypt from "bcryptjs"
+import bcrypt from "bcryptjs";
 
 async function login(req, res) {
-  const loginInfo = req.body
+  const loginInfo = req.body;
   try {
-    const adminInfo = await Admin.findOne({email: loginInfo.email} )
-    const isMatch = await bcrypt.compare(loginInfo.password, adminInfo.password)
+    const adminInfo = await Admin.findOne({ email: loginInfo.email });
+    const isMatch = await bcrypt.compare(
+      loginInfo.password,
+      adminInfo.password
+    );
     console.log(isMatch);
-    if (!isMatch){
-      return res.status(500).json("contraseña incorrecta")
+    if (!isMatch) {
+      return res.status(500).json("contraseña incorrecta");
     }
-    const payload = adminInfo.toObject()
-    delete payload.password
-    const data = {...payload}
-    
-    const token = CreateToken(data)
-    return res.status(200).json(token)
+    const payload = adminInfo.toObject();
+    delete payload.password;
+    const data = { ...payload };
+
+    const token = createToken(data);
+    return res.status(200).json(token);
   } catch (error) {
     console.log(error);
-    return res.status(404).json("administrador no encontrado") 
-
+    return res.status(404).json("administrador no encontrado");
   }
+}
 
-
-
-    }
-
-//'Aporte Duvan crear administrador, poder editar el administrador y eliminar, crear reglas de visualización del administrador y edpoint 
-
+//'Aporte Duvan crear administrador, poder editar el administrador y eliminar, crear reglas de visualización del administrador y edpoint
 
 async function getAll(req, res) {
   try {
-    const admins= await Admin.find({ deletedAt: null });
+    const admins = await Admin.find({ deletedAt: null });
     return res.json(admins);
   } catch (error) {
     console.log(error);
@@ -51,23 +49,22 @@ async function getById(req, res) {
 }
 
 async function create(req, res) {
-    try {
-      // Construye el objeto de compra desde el cuerpo de la solicitud
-      const newAdmin = await Admin.create({
-        document:req.body.document,
-        name:req.body.name,
-        lastName:req.body.lastName,
-        email:req.body.email,
-        password:req.body.password,
-      });
-  
-      return res.status(201).json(newAdmin);
-    } catch (error) {
-      console.log(error.message || "Error en la creación del admin");
-      return res.status(500).json({ error: "Error en el servidor" });
-    }
-  }
+  try {
+    // Construye el objeto de compra desde el cuerpo de la solicitud
+    const newAdmin = await Admin.create({
+      document: req.body.document,
+      name: req.body.name,
+      lastName: req.body.lastName,
+      email: req.body.email,
+      password: req.body.password,
+    });
 
+    return res.status(201).json(newAdmin);
+  } catch (error) {
+    console.log(error.message || "Error en la creación del admin");
+    return res.status(500).json({ error: "Error en el servidor" });
+  }
+}
 
 async function update(req, res) {
   const adminToUpdate = await Admin.findById(req.params.id);
@@ -91,18 +88,16 @@ async function update(req, res) {
 
 async function deleteAdmin(req, res) {
   try {
-  
-      const adminToDelete = await Admin.findById(req.params.id);
+    const adminToDelete = await Admin.findById(req.params.id);
 
-      adminToDelete.deletedAt = Date.now();
-      adminToDelete.save();
+    adminToDelete.deletedAt = Date.now();
+    adminToDelete.save();
 
-      return res.json("El administrador se ha eliminado");
+    return res.json("El administrador se ha eliminado");
   } catch (error) {
-     console.log("se cayo el sistema")
+    console.log("se cayo el sistema");
   }
 }
-
 
 export default {
   getAll: getAll,
@@ -110,5 +105,5 @@ export default {
   create: create,
   update: update,
   deleteAdmin: deleteAdmin,
-  login: login
+  login: login,
 };
