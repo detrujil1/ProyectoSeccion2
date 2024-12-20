@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">97.82% </span>
+                <span class="strong">95.65% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>45/46</span>
+                <span class='fraction'>44/46</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">97.82% </span>
+                <span class="strong">95.65% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>45/46</span>
+                <span class='fraction'>44/46</span>
             </div>
         
             
@@ -172,12 +172,7 @@
 <a name='L107'></a><a href='#L107'>107</a>
 <a name='L108'></a><a href='#L108'>108</a>
 <a name='L109'></a><a href='#L109'>109</a>
-<a name='L110'></a><a href='#L110'>110</a>
-<a name='L111'></a><a href='#L111'>111</a>
-<a name='L112'></a><a href='#L112'>112</a>
-<a name='L113'></a><a href='#L113'>113</a>
-<a name='L114'></a><a href='#L114'>114</a>
-<a name='L115'></a><a href='#L115'>115</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L110'></a><a href='#L110'>110</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -186,6 +181,9 @@
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -195,15 +193,10 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -248,7 +241,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
@@ -270,7 +262,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
@@ -290,42 +281,39 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { CreateToken } from "../middleware/createToken.js";
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { createToken } from "../middleware/createToken.js";
 import Admin from "../models/admin.js";
-import bcrypt from "bcryptjs"
+import bcrypt from "bcryptjs";
 &nbsp;
 async function login(req, res) {
-  const loginInfo = req.body
+  const loginInfo = req.body;
   try {
-    const adminInfo = await Admin.findOne({email: loginInfo.email} )
-    const isMatch = await bcrypt.compare(loginInfo.password, adminInfo.password)
+    const adminInfo = await Admin.findOne({ email: loginInfo.email });
+    const isMatch = await bcrypt.compare(
+      loginInfo.password,
+      adminInfo.password
+    );
     console.log(isMatch);
-    if (!isMatch){
-      return res.status(500).json("contraseña incorrecta")
+    if (!isMatch) {
+      return res.status(500).json("contraseña incorrecta");
     }
-    const payload = adminInfo.toObject()
-    delete payload.password
-    const data = {...payload}
-    
-    const token = CreateToken(data)
-    return res.status(200).json(token)
+    const payload = adminInfo.toObject();
+    delete payload.password;
+    const data = { ...payload };
+&nbsp;
+    const token = createToken(data);
+<span class="cstat-no" title="statement not covered" >    return res.status(200).json(token);</span>
   } catch (error) {
     console.log(error);
-    return res.status(404).json("administrador no encontrado") 
-&nbsp;
+    return res.status(404).json("administrador no encontrado");
   }
+}
 &nbsp;
-&nbsp;
-&nbsp;
-    }
-&nbsp;
-//'Aporte Duvan crear administrador, poder editar el administrador y eliminar, crear reglas de visualización del administrador y edpoint 
-&nbsp;
+//'Aporte Duvan crear administrador, poder editar el administrador y eliminar, crear reglas de visualización del administrador y edpoint
 &nbsp;
 async function getAll(req, res) {
   try {
-    const admins= await Admin.find({ deletedAt: null });
+    const admins = await Admin.find({ deletedAt: null });
     return res.json(admins);
   } catch (error) {
     console.log(error);
@@ -344,23 +332,22 @@ async function getById(req, res) {
 }
 &nbsp;
 async function create(req, res) {
-    try {
-      // Construye el objeto de compra desde el cuerpo de la solicitud
-      const newAdmin = await Admin.create({
-        document:req.body.document,
-        name:req.body.name,
-        lastName:req.body.lastName,
-        email:req.body.email,
-        password:req.body.password,
-      });
-  
-      return res.status(201).json(newAdmin);
-    } catch (error) {
-      console.log(error.message || <span class="branch-1 cbranch-no" title="branch not covered" >"Error en la creación del admin")</span>;
-      return res.status(500).json({ error: "Error en el servidor" });
-    }
-  }
+  try {
+    // Construye el objeto de compra desde el cuerpo de la solicitud
+    const newAdmin = await Admin.create({
+      document: req.body.document,
+      name: req.body.name,
+      lastName: req.body.lastName,
+      email: req.body.email,
+      password: req.body.password,
+    });
 &nbsp;
+    return res.status(201).json(newAdmin);
+  } catch (error) {
+    console.log(error.message || <span class="branch-1 cbranch-no" title="branch not covered" >"Error en la creación del admin")</span>;
+    return res.status(500).json({ error: "Error en el servidor" });
+  }
+}
 &nbsp;
 async function update(req, res) {
   const adminToUpdate = await Admin.findById(req.params.id);
@@ -384,18 +371,16 @@ async function update(req, res) {
 &nbsp;
 async function deleteAdmin(req, res) {
   try {
-  
-      const adminToDelete = await Admin.findById(req.params.id);
+    const adminToDelete = await Admin.findById(req.params.id);
 &nbsp;
-      adminToDelete.deletedAt = Date.now();
-      adminToDelete.save();
+    adminToDelete.deletedAt = Date.now();
+    adminToDelete.save();
 &nbsp;
-      return res.json("El administrador se ha eliminado");
+    return res.json("El administrador se ha eliminado");
   } catch (error) {
-<span class="cstat-no" title="statement not covered" >     console.log("se cayo el sistema")</span>
+<span class="cstat-no" title="statement not covered" >    console.log("se cayo el sistema");</span>
   }
 }
-&nbsp;
 &nbsp;
 export default {
   getAll: getAll,
@@ -403,7 +388,7 @@ export default {
   create: create,
   update: update,
   deleteAdmin: deleteAdmin,
-  login: login
+  login: login,
 };
 &nbsp;</pre></td></tr></table></pre>
 
@@ -412,7 +397,7 @@ export default {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-12-18T23:38:26.980Z
+                at 2024-12-20T23:42:15.815Z
             </div>
         <script src="../prettify.js"></script>
         <script>
