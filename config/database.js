@@ -1,22 +1,20 @@
-import mongoose from "mongoose";
-import dotenv from "dotenv";
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
+
 dotenv.config();
+
 const mongoUri = process.env.DB_URI;
 
-
-async function connectDB() {
-  try {
-    const connection = await mongoose.connect(
-      mongoUri
-
-
-
-    );
-    console.log("Se ha establecido conexión a la base de datos");
-  } catch (error) {
-    console.log(error);
-    process.exit(1);
-  }
+async function databaseConnection() {
+    try {
+        if (!mongoUri) {
+            throw new Error('No DB_URI defined in environment variables');
+        }
+        await mongoose.connect(mongoUri); // Sin opciones adicionales
+        console.log('Database connected');
+    } catch (error) {
+        console.error('Error connecting to database:', error.message);
+    }
 }
 
-export default connectDB;
+export default databaseConnection;
